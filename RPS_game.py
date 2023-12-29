@@ -8,7 +8,7 @@ def play(player1, player2, num_games, verbose=False):
     p2_prev_play = ""
     results = {"p1": 0, "p2": 0, "tie": 0}
 
-    for _ in range(num_games):
+    for i in range(num_games):
         p1_play = player1(p2_prev_play)
         p2_play = player2(p1_prev_play)
 
@@ -31,6 +31,16 @@ def play(player1, player2, num_games, verbose=False):
 
         p1_prev_play = p1_play
         p2_prev_play = p2_play
+
+        # if i % 10 == 0:
+        #     games_won = results['p2'] + results['p1']
+
+        #     if games_won == 0:
+        #         win_rate = 0
+        #     else:
+        #         win_rate = results['p1'] / games_won * 100
+
+        #     print(f"Current win rate: {win_rate}%")
 
     games_won = results['p2'] + results['p1']
 
