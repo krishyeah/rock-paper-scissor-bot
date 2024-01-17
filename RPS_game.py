@@ -12,20 +12,23 @@ def play(player1, player2, num_games, verbose=False):
         p1_play = player1(p2_prev_play)
         p2_play = player2(p1_prev_play)
 
+        if p1_play == 'Q':
+            break
+        
         if p1_play == p2_play:
             results["tie"] += 1
             winner = "Tie."
         elif (p1_play == "P" and p2_play == "R") or (
                 p1_play == "R" and p2_play == "S") or (p1_play == "S"
                                                        and p2_play == "P"):
-            results["p1"] += 1
-            winner = "Player 1 wins."
+            results["You"] += 1
+            winner = "Human wins."
         elif p2_play == "P" and p1_play == "R" or p2_play == "R" and p1_play == "S" or p2_play == "S" and p1_play == "P":
-            results["p2"] += 1
-            winner = "Player 2 wins."
+            results["RPS_Bot"] += 1
+            winner = "RPS_Bot wins."
 
         if verbose:
-            print("Player 1:", p1_play, "| Player 2:", p2_play)
+            print("Human:", p1_play, "| , RPS_Bot:", p2_play)
             print(winner)
             print()
 
@@ -50,13 +53,12 @@ def play(player1, player2, num_games, verbose=False):
         win_rate = results['p1'] / games_won * 100
 
     print("Final results:", results)
-    print(f"Player 1 win rate: {win_rate}%")
+    print(f"Your win rate: {win_rate}%")
 
     return (win_rate)
 
 
 def quincy(prev_play, counter=[0]):
-
     counter[0] += 1
     choices = ["R", "R", "P", "P", "S"]
     return choices[counter[0] % len(choices)]
@@ -94,7 +96,6 @@ def abbey(prev_opponent_play,
               "SP": 0,
               "SS": 0,
           }]):
-
     if not prev_opponent_play:
         prev_opponent_play = 'R'
     opponent_history.append(prev_opponent_play)
@@ -122,8 +123,8 @@ def abbey(prev_opponent_play,
 
 def human(prev_opponent_play):
     play = ""
-    while play not in ['R', 'P', 'S']:
-        play = input("[R]ock, [P]aper, [S]cissors? ")
+    while play not in ['R', 'P', 'S', 'Q']:
+        play = input("[R]ock, [P]aper, [S]cissors, [Q]uit? ")
         print(play)
     return play
 
